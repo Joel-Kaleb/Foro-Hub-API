@@ -3,6 +3,8 @@ package com.joelk.forohub.domain.topic;
 import com.joelk.forohub.domain.course.CourseRepository;
 import com.joelk.forohub.domain.topic.validations.post.TopicValidation;
 import com.joelk.forohub.domain.user.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,5 +33,10 @@ public class TopicService {
         topicRepository.save(topic);
 
         return new DataDetailTopic(topic);
+    }
+
+    public Page<ListDataTopic> getAllTopics(Pageable pagination) {
+        return topicRepository.findAllByActiveTrue(pagination)
+                .map(ListDataTopic::new);
     }
 }
