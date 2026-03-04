@@ -26,7 +26,7 @@ public class TopicService {
         var author = userRepository.getReferenceById(data.authorId());
         var course = courseRepository.getReferenceById(data.courseId());
 
-        var topic = new Topic(null, data.title(), data.message(), null, null, true, author, course);
+        var topic = new Topic(data, author, course);
 
         topicRepository.save(topic);
 

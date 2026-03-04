@@ -45,4 +45,13 @@ public class Topic {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id")
     private Course course;
+
+    public Topic(DataRegistrationTopic data, User author, Course course) {
+        this.title = data.title();
+        this.message = data.message();
+        this.author = author;
+        this.course = course;
+        this.active = true;
+        this.createdAt = LocalDateTime.now();
+    }
 }
