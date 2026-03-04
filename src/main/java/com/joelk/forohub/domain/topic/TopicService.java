@@ -1,0 +1,35 @@
+package com.joelk.forohub.domain.topic;
+
+import com.joelk.forohub.domain.course.CourseRepository;
+import com.joelk.forohub.domain.topic.validations.post.TopicValidation;
+import com.joelk.forohub.domain.user.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class TopicService {
+
+    private final TopicRepository topicRepository;
+    private final UserRepository userRepository;
+    private final CourseRepository courseRepository;
+
+    private final List<TopicValidation> validations;
+
+    @Transactional
+    public DataDetailTopic createNewTopic(DataRegistrationTopic data) {
+        validations.forEach(v -> v.validation(data));
+
+        var author = userRepository.getReferenceById(data.authorId());
+        var course = courseRepository.getReferenceById(data.courseId());
+
+        var topic = new Topic(null, data.title(), data.message(), null, null, true, author, course);
+
+        topicRepository.save(topic);
+
+        return new DataDetailTopic(topic);
+    }
+}

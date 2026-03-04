@@ -10,4 +10,8 @@ public record DataDetailTopic(
         String authorName,
         String courseName
 ) {
+    public DataDetailTopic(Topic topic) {
+        this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getCreatedAt(),
+                topic.getAuthor().getName(), topic.getCourse().getName());
+    }
 }
