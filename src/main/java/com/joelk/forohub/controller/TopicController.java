@@ -1,5 +1,6 @@
 package com.joelk.forohub.controller;
 
+import com.joelk.forohub.domain.topic.DataDetailTopic;
 import com.joelk.forohub.domain.topic.DataRegistrationTopic;
 import com.joelk.forohub.domain.topic.ListDataTopic;
 import com.joelk.forohub.domain.topic.TopicService;
@@ -32,5 +33,11 @@ public class TopicController {
     public ResponseEntity<Page<ListDataTopic>> sendAllTopics(@PageableDefault(size = 10, sort = {"createdAt"}) Pageable pageable) {
         var page = topicService.getAllTopics(pageable);
         return ResponseEntity.ok(page);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<DataDetailTopic> showTopic(@PathVariable Long id) {
+        var details = topicService.getTopicDetails(id);
+        return ResponseEntity.ok(details);
     }
 }

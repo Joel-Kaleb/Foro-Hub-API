@@ -3,6 +3,8 @@ package com.joelk.forohub.domain.topic;
 import com.joelk.forohub.domain.course.CourseRepository;
 import com.joelk.forohub.domain.topic.validations.post.TopicValidation;
 import com.joelk.forohub.domain.user.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.hibernate.query.sqm.EntityTypeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +40,12 @@ public class TopicService {
     public Page<ListDataTopic> getAllTopics(Pageable pagination) {
         return topicRepository.findAllByActiveTrue(pagination)
                 .map(ListDataTopic::new);
+    }
+
+    public DataDetailTopic getTopicDetails(Long id) {
+        var topic = topicRepository.findByIdAndActiveTrue(id)
+                .orElseThrow(() -> new EntityNotFoundException("Topic not found or is inactive"));
+
+        return new DataDetailTopic(topic);
     }
 }
