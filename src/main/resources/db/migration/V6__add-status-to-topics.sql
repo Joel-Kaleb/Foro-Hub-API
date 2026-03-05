@@ -1,0 +1,5 @@
+ALTER TABLE topics ADD COLUMN status VARCHAR(20);
+
+UPDATE topics SET status = 'OPEN' WHERE status IS NULL;
+
+ALTER TABLE topics ALTER COLUMN status SET NOT NULL;
