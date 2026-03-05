@@ -8,6 +8,7 @@ public record ListDataTopic(
     String message,
     LocalDateTime createdAt,
     LocalDateTime updatedAt,
+    TopicStatus status,
     String author,
     String course
 ) {
@@ -18,6 +19,7 @@ public record ListDataTopic(
                 topic.getMessage(),
                 topic.getCreatedAt(),
                 topic.getUpdatedAt(),
+                topic.getStatus(),
                 topic.getAuthor().getName(),
                 topic.getCourse().getName()
         );

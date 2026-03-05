@@ -4,7 +4,6 @@ import com.joelk.forohub.domain.course.CourseRepository;
 import com.joelk.forohub.domain.topic.validations.post.TopicValidation;
 import com.joelk.forohub.domain.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.hibernate.query.sqm.EntityTypeException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import lombok.RequiredArgsConstructor;

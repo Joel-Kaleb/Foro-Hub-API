@@ -7,11 +7,13 @@ public record DataDetailTopic(
         String title,
         String message,
         LocalDateTime createdAt,
+        TopicStatus status,
         String authorName,
         String courseName
 ) {
     public DataDetailTopic(Topic topic) {
         this(topic.getId(), topic.getTitle(), topic.getMessage(), topic.getCreatedAt(),
+                topic.getStatus(),
                 topic.getAuthor().getName(), topic.getCourse().getName());
     }
 }

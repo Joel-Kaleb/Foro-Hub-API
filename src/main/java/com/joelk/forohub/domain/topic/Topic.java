@@ -46,6 +46,9 @@ public class Topic {
     @JoinColumn(name = "course_id")
     private Course course;
 
+    @Enumerated(EnumType.STRING)
+    private TopicStatus status = TopicStatus.OPEN;
+
     public Topic(DataRegistrationTopic data, User author, Course course) {
         this.title = data.title();
         this.message = data.message();
