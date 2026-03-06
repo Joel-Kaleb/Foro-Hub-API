@@ -73,4 +73,8 @@ public class Topic {
         }
         this.updatedAt = LocalDateTime.now();
     }
+
+    public void deactivate() {
+        this.active = false;
+    }
 }

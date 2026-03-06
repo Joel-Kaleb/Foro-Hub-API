@@ -67,4 +67,12 @@ public class TopicService {
 
         return new DataDetailTopic(topic);
     }
+
+    @Transactional
+    public void deleteTopic(Long id) {
+        var topic = topicRepository.findByIdAndActiveTrue(id)
+                .orElseThrow(() -> new EntityNotFoundException("The topic does not exist or was eliminated."));
+
+        topic.deactivate();
+    }
 }
