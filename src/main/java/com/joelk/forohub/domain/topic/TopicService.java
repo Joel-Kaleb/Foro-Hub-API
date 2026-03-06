@@ -45,34 +45,30 @@ public class TopicService {
     }
 
     public DataDetailTopic getTopicDetails(Long id) {
-        var topic = topicRepository.findByIdAndActiveTrue(id)
-                .orElseThrow(() -> new EntityNotFoundException("Topic not found or is inactive"));
-
-        return new DataDetailTopic(topic);
+        return new DataDetailTopic(findActiveTopic(id));
     }
 
     @Transactional
     public DataDetailTopic updateTopic(Long id, DataUpdateTopic data) {
-        var topic = topicRepository.findByIdAndActiveTrue(id)
-                .orElseThrow(() -> new EntityNotFoundException("The topic does not exist or was eliminated."));
+        var topic = findActiveTopic(id);
 
         topicUpdateValidators.forEach(v -> v.validate(data, id));
 
-        Course newCourse = null;
-        if (data.courseId() != null) {
-            newCourse = courseRepository.getReferenceById(data.courseId());
-        }
+        Course newCourse = (data.courseId() != null)
+                ? courseRepository.getReferenceById(data.courseId())
+                : null;
 
         topic.updateInformation(data, newCourse);
-
         return new DataDetailTopic(topic);
     }
 
     @Transactional
     public void deleteTopic(Long id) {
-        var topic = topicRepository.findByIdAndActiveTrue(id)
-                .orElseThrow(() -> new EntityNotFoundException("The topic does not exist or was eliminated."));
+        findActiveTopic(id).deactivate();
+    }
 
-        topic.deactivate();
+    private Topic findActiveTopic(Long id) {
+        return topicRepository.findByIdAndActiveTrue(id)
+                .orElseThrow(() -> new EntityNotFoundException("The topic does not exist or was eliminated."));
     }
 }
