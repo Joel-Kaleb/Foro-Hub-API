@@ -7,7 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface TopicRepository extends JpaRepository<Topic,Long> {
+
     boolean existsByTitleAndMessage(String title, String message);
+
     Page<Topic> findAllByActiveTrue(Pageable pageable);
+
     Optional<Topic> findByIdAndActiveTrue(Long id);
+
+    boolean existsByTitleAndMessageAndIdNot(String title, String message, Long id);
 }

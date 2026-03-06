@@ -57,4 +57,20 @@ public class Topic {
         this.active = true;
         this.createdAt = LocalDateTime.now();
     }
+
+    public void updateInformation(DataUpdateTopic data, Course newCourse) {
+        if (data.title() != null) {
+            this.title = data.title();
+        }
+        if (data.message() != null) {
+            this.message = data.message();
+        }
+        if (data.status() != null) {
+            this.status = data.status();
+        }
+        if (newCourse != null) {
+            this.course = newCourse;
+        }
+        this.updatedAt = LocalDateTime.now();
+    }
 }

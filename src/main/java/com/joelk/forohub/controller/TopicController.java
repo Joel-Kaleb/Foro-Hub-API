@@ -1,9 +1,6 @@
 package com.joelk.forohub.controller;
 
-import com.joelk.forohub.domain.topic.DataDetailTopic;
-import com.joelk.forohub.domain.topic.DataRegistrationTopic;
-import com.joelk.forohub.domain.topic.ListDataTopic;
-import com.joelk.forohub.domain.topic.TopicService;
+import com.joelk.forohub.domain.topic.*;
 import org.springframework.data.domain.Page;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -39,5 +36,11 @@ public class TopicController {
     public ResponseEntity<DataDetailTopic> showTopic(@PathVariable Long id) {
         var details = topicService.getTopicDetails(id);
         return ResponseEntity.ok(details);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<DataDetailTopic> updateTopic(@PathVariable Long id, @RequestBody @Valid DataUpdateTopic data) {
+        var response = topicService.updateTopic(id, data);
+        return ResponseEntity.ok(response);
     }
 }
