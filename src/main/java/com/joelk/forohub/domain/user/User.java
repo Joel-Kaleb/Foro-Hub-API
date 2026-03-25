@@ -44,6 +44,14 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private LocalDateTime updateAt;
 
+    public User(DataRegistrationUser data, String hashedPassword) {
+        this.name = data.name();
+        this.email = data.email();
+        this.password = hashedPassword;
+        this.active = true;
+        this.createdAt = LocalDateTime.now();
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
