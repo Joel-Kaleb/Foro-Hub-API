@@ -16,4 +16,8 @@ public record DataRegistrationUser(
         @Size(min = 6, message = "Password must be at least 6 characters long")
         String password
 ) {
+    public DataRegistrationUser {
+        name = name.trim();
+        email = email.trim().toLowerCase();
+    }
 }
