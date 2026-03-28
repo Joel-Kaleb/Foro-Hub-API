@@ -17,7 +17,7 @@ public record DataRegistrationUser(
         String password
 ) {
     public DataRegistrationUser {
-        name = name.trim();
-        email = email.trim().toLowerCase();
+        name = (name != null) ? name.trim() : null;
+        email = (email != null) ? email.trim().toLowerCase() : null;
     }
 }
